@@ -14,7 +14,6 @@ services:
       - "5432:5432"
     networks:
       - postgres
-    restart: unless-stopped
 
   zipkin:
     container_name: zipkin
@@ -23,7 +22,7 @@ services:
       - "9411:9411"
     networks:
       - postgres
-    restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4
@@ -37,7 +36,15 @@ services:
       - "5050:80"
     networks:
       - postgres
-    restart: unless-stopped
+
+  rabbitmq:
+    container_name: rabbitmq_container
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - postgres
 
 networks:
   postgres:
